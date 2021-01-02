@@ -7,8 +7,45 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="musicBean"
+    <bean id="classicalMusicBean"
+          class="com.mes.ClassicalMusic">
+    </bean>
+    <bean id="rockMusicBean"
           class="com.mes.RockMusic">
+    </bean>
+    <bean id="repMusicBean"
+          class="com.mes.RepMusic">
+    </bean>
+
+
+
+<!--    IoC using constructor-->
+<!--    <bean id="musicPlayer" class="com.mes.MusicPlayer">-->
+<!--        <constructor-arg ref="musicBean"/>-->
+<!--    </bean>-->
+
+<!--  import from musicPlayer.properties  -->
+    <context:property-placeholder location="classpath:musicPlayer.properties"/>
+
+<!--    IoC using setter-->
+<!--    <bean id="musicPlayer" class="com.mes.MusicPlayer">-->
+<!--      <property name="music" ref="musicBean"/>-->
+<!--        <property name="name" value="${musicPlayer.name}"/>-->
+<!--        <property name="volume" value="${musicPlayer.volume}"/>-->
+<!--   </bean>-->
+
+    <bean id="musicPlayer"
+          class="com.mes.MusicPlayer">
+        <property name="musicList">
+            <list value-type="com.mes.Music">
+                <ref bean="classicalMusicBean"/>
+                <ref bean="rockMusicBean"/>
+                <ref bean="repMusicBean"/>
+            </list>
+        </property>
+
+        <property name="name" value="${musicPlayer.name}"/>
+        <property name="volume" value="${musicPlayer.volume}"/>
     </bean>
 
 </beans>

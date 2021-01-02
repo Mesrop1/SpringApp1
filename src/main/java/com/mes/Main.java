@@ -10,16 +10,16 @@ public class Main {
     public static void main(String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
 
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        //create object of class Music
+        MusicPlayer musicPlayer = context.getBean("musicPlayer",MusicPlayer.class);
 
-        Music music = context.getBean("musicBean",Music.class);
-
-        //dependency injection
-        MusicPlayer musicPlayer = new MusicPlayer(music);
-
+        System.out.println(musicPlayer.getName());
+        System.out.println(musicPlayer.getVolume());
         musicPlayer.playMusic();
+
+
 
         context.close();
     }
